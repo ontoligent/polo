@@ -1,4 +1,4 @@
 projects/*
 !projects/demo
-!projects/demo/**
-
+!projects/demo/*
+!projects/demo/trials/default

@@ -66,6 +66,11 @@ else:
 play_config = configparser.ConfigParser()
 play_config.read(play_config_file)
 mallet_path = play_config['DEFAULT']['mallet_path']
+if os.path.exists(mallet_path):
+    print('OK mallet found')
+else:
+    print('NOT OK mallet not found')
+    sys.exit(0)
 
 config_file = 'projects/%s/config.ini' % (project)
 if os.path.exists(config_file):

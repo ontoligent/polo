@@ -110,9 +110,9 @@ class Mallet:
                     k = re.sub('-', '_', '{0}__{1}'.format(k1,k2))
                     v = self.mallet[k1][k2]
                     cur.execute('INSERT INTO config VALUES (?,?)',[k,v])
-            #for k in self.cfg[self.trial]:
-            #    v = self.cfg[self.trial][k]
-            #    cur.execute('INSERT INTO config VALUES (?,?)',[k,v])
+            for k in self.cfg['DEFAULT']:
+                v = self.cfg['DEFAULT'][k]
+                cur.execute('INSERT INTO config VALUES (?,?)',[k,v])
             conn.commit()
                     
             # Import the CSV files

@@ -85,6 +85,11 @@ class Mallet:
             self.tbl_sql[table] += ','.join(fields)
             self.tbl_sql[table] += ")"
 
+    def generate_dbfilename(self):
+        z = self.mallet['train-topics']['num-topics']
+        iterations = self.mallet['train-topics']['num-iterations']            
+        return '{0}/{1}-{2}-z{3}-i{4}.db'.format(self.trial_path,self.project,self.trial,z,iterations)
+
     def import_model(self):
         z = self.mallet['train-topics']['num-topics']
 
@@ -96,8 +101,8 @@ class Mallet:
         srcfiles['xml']['topicphrase'] = self.mallet['train-topics']['xml-topic-phrase-report']
         #srcfiles['csv']['topicword'] = self.mallet['train-topics']['topic-word-weights-file']
         
-        db_file = '{0}/trials/{1}/{2}-{1}-z{3}-i{4}.db'.format(self.project_path,self.trial,self.project,z,self.mallet['train-topics']['num-iterations'])
-        with sqlite3.connect(db_file) as conn:
+        dbfile = self.generate_dbfilename()
+        with sqlite3.connect(dbfile) as conn:
             cur = conn.cursor()
 
             # Create a table for the config data
@@ -106,12 +111,11 @@ class Mallet:
             conn.commit()
             for k1 in self.mallet:
                 for k2 in self.mallet[k1]:
-                    k = re.sub('-', '_', '{0}__{1}'.format(k1,k2))
+                    k = re.sub('-', '_', 'mallet_{0}_{1}'.format(k1,k2))
                     v = self.mallet[k1][k2]
                     cur.execute('INSERT INTO config VALUES (?,?)',[k,v])
             for k in self.cfg['DEFAULT']:
-                v = self.cfg['DEFAULT'][k]
-                cur.execute('INSERT INTO config VALUES (?,?)',[k,v])
+                cur.execute('INSERT INTO config VALUES (?,?)',['project_'+k, self.cfg['DEFAULT'][k]])
             conn.commit()
                     
             # Import the CSV files

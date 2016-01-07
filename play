@@ -117,12 +117,17 @@ print('OK Mallet is finished doing its thing')
 print('HEY Generating the SQL')
 p.create_table_defs()
 
-# Check if the files are there -- stopwords, corpus
-# Haven't done this yet
-
 # Do the imports
 print('HEY Importing the model')
 p.import_model()
 
-print('BYE Done with everything')
+# Say bye
+print('OK Done with everything.')
+
+# Share the love
+dbfile = p.generate_dbfilename()
+print('-' * 80)
+print('Enter the following to see your new database right away:')
+print('\tsqlite3', dbfile)
+print('-' * 80)
 sys.exit(0)

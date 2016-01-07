@@ -1,0 +1,106 @@
+#!/usr/bin/env python
+
+'''
+This runs (plays) Polo in a particular way.
+It needs to be updated to validate user input.
+Should use named arguments for config
+overrides, along with short versions
+e.g. --num-topics -> z
+     --num-iterations -> i
+'''
+
+import sys, os, configparser
+from polo.mallet import Mallet
+
+# Get arguments -- expecting project and trial
+args = len(sys.argv)
+
+if args < 3:
+    print('Wrong number of arguments. You need at least two (project and trial)')
+    sys.exit(0)
+project = sys.argv[1]
+trial = sys.argv[2]
+print('OK Project:',project)
+print('OK Trial:',trial)
+
+# Handle overriding of topic nums (z) and iterations
+z = 0
+if args >= 4:
+    try:
+        z = int(sys.argv[3]) 
+        print('OK Z override:',z)
+    except:
+        print('NOT OK Z value is not an integer')
+        sys.exit(0)
+
+iterations = 0
+if args >= 5:
+    try:
+        iterations = int(sys.argv[4])
+        print('OK Iterations override:',iterations)
+    except:
+        print('NOT OK Iterations value is not an integer')
+        sys.exit(0)
+
+# Do these directories exist, etc?
+if os.path.exists("projects/%s" % project):
+    print('OK Project directory exists')
+else:
+    print('NOT OK Project directory does not exist. Create one under projects')
+    sys.exit(0)
+if os.path.exists('projects/%s/trials/%s' % (project,trial)):
+    print('OK Trial directory exists')
+else:
+    print('NOT OK Trial directory does not exist. Create one under your pojects directory')
+    sys.exit(0)
+
+# Do the configs exist?
+config_file = 'projects/%s/config.ini' % (project)
+if os.path.exists(config_file):
+    print('OK Config file exists')
+else:
+    print('NOT OK Config file does not exist. Create config.ini in your project directory'); sys.exit(0)
+config = configparser.ConfigParser()
+config.read(config_file)
+
+# Check if everything is defined ...
+if trial in config.keys():
+    print('OK Trial defined in config.ini')
+else:
+    print('NOT OK Trial not defined in config.ini'); sys.exit()
+
+# Create the Polo object
+print('HEY Creating Polo object')
+p = Mallet(project,trial)
+
+# Change number of topics if passed
+if z:
+    print('HEY Updating Z to {0}, as suggested'.format(z))
+    p.mallet['train-topics']['num-topics'] = z
+if iterations:
+    print('HEY Updating Iterations to {0}, as suggested'.format(iterations))
+    p.mallet['train-topics']['num-iterations'] = iterations
+
+# CORPUS -> MALLET
+
+# Run mallet to create the mallet file
+print('HEY Importing mallet file')
+p.mallet_import()
+
+# Run mallet to generate the model
+print('HEY Training topics')
+p.mallet_train()
+
+# MALLET -> SQLITE
+
+# Generate the SQL
+print('HEY Generating the SQL')
+# Check of the files are there -- stopwords, corpus
+p.create_table_defs()
+
+# Do the imports
+print('HEY Importing the model')
+p.import_model()
+
+print('BYE Done with everything')
+sys.exit(0)

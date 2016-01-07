@@ -60,10 +60,14 @@ class Mallet:
                 self.mallet['train-topics'][arg] = self.cfg[self.trial][arg]
 
     def mallet_run_command(self,op):
-        my_cmd = '{0} {1}'.format(self.mallet_path, op)
+        #my_cmd = '{0} {1}'.format(self.mallet_path, op)
+        #for arg in self.mallet[op]:
+        #    my_cmd += ' --{0} {1}'.format(arg,self.mallet[op][arg])
+        my_cmd = []
+        my_cmd.append('{0} {1}'.format(self.mallet_path, op))
         for arg in self.mallet[op]:
-            my_cmd += ' --{0} {1}'.format(arg,self.mallet[op][arg])
-        self.cmd_response = os.system(my_cmd)
+            my_cmd.append('--{0} {1}'.format(arg,self.mallet[op][arg]))
+        self.cmd_response = os.system(' '.join(my_cmd))
         
     def mallet_import(self):
         self.mallet_run_command('import-file')

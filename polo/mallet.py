@@ -107,7 +107,7 @@ class Mallet:
             conn.commit()
             for k1 in self.mallet:
                 for k2 in self.mallet[k1]:
-                    k = re.sub('-', '_', '{0}:{1}'.format(k1,k2))
+                    k = re.sub('-', '_', '{0}__{1}'.format(k1,k2))
                     v = self.mallet[k1][k2]
                     cur.execute('INSERT INTO config VALUES (?,?)',[k,v])
             #for k in self.cfg[self.trial]:

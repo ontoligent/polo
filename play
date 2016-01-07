@@ -1,34 +1,39 @@
 #!/usr/bin/env python
 
-'''
-This runs (plays) Polo in a particular way.
-It needs to be updated to validate user input.
-Should use named arguments for config
-overrides, along with short versions
-e.g. --num-topics -> z
-     --num-iterations -> i
-'''
-
 import sys, os, configparser
 from polo.mallet import Mallet
 
-# Get arguments -- expecting project and trial
+# Get command line arguments -- we expect project and trial at a minimum
 args = len(sys.argv)
 
 if args < 3:
     print('Wrong number of arguments. You need at least two (project and trial)')
     sys.exit(0)
-project = sys.argv[1]
-trial = sys.argv[2]
-print('OK Project:',project)
-print('OK Trial:',trial)
 
-# Handle overriding of topic nums (z) and iterations
+# Is the project defined and does the directory exist?
+project = sys.argv[1]
+print('OK Project is', project)
+if os.path.exists("projects/%s" % project):
+    print('OK Project directory exists')
+else:
+    print('NOT OK Project directory does not exist. Create one under projects')
+    sys.exit(0)
+
+# Is the trial defined and does the directory exist?
+trial = sys.argv[2]
+print('OK Trial is',trial)
+if os.path.exists('projects/%s/trials/%s' % (project,trial)):
+    print('OK Trial directory exists')
+else:
+    print('NOT OK Trial directory does not exist. Create one under your pojects directory')
+    sys.exit(0)
+
+# Handle extra arguments that may override of topic nums (z) and iterations
 z = 0
 if args >= 4:
     try:
         z = int(sys.argv[3]) 
-        print('OK Z override:',z)
+        print('OK Z override is',z)
     except:
         print('NOT OK Z value is not an integer')
         sys.exit(0)
@@ -37,24 +42,12 @@ iterations = 0
 if args >= 5:
     try:
         iterations = int(sys.argv[4])
-        print('OK Iterations override:',iterations)
+        print('OK Iterations override is',iterations)
     except:
         print('NOT OK Iterations value is not an integer')
         sys.exit(0)
 
-# Do these directories exist, etc?
-if os.path.exists("projects/%s" % project):
-    print('OK Project directory exists')
-else:
-    print('NOT OK Project directory does not exist. Create one under projects')
-    sys.exit(0)
-if os.path.exists('projects/%s/trials/%s' % (project,trial)):
-    print('OK Trial directory exists')
-else:
-    print('NOT OK Trial directory does not exist. Create one under your pojects directory')
-    sys.exit(0)
-
-# Do the configs exist?
+# Does the play config exist?
 play_config_file = 'config-play.ini'
 if os.path.exists(play_config_file):
     print('OK Play config file exists')
@@ -63,6 +56,8 @@ else:
     sys.exit(0)
 play_config = configparser.ConfigParser()
 play_config.read(play_config_file)
+
+# Can mallet be found?
 mallet_path = play_config['DEFAULT']['mallet_path']
 if os.path.exists(mallet_path):
     print('OK mallet found')
@@ -70,29 +65,31 @@ else:
     print('NOT OK mallet not found')
     sys.exit(0)
 
+# Can a projects path be found?
 projects_path = play_config['DEFAULT']['projects_path']
 if os.path.exists(mallet_path):
     print('OK projects path found')
 else:
-    print('NOT OK projects path not found. Using default (projects)')
+    print('NOT REALLY OK A projects path was not found. Using default (projects)')
     projects_path = 'projects'
 
+# Does the project config exist?
 config_file = '%s/%s/config.ini' % (projects_path,project)
 if os.path.exists(config_file):
-    print('OK Config file exists')
+    print('OK Project config file exists')
 else:
-    print('NOT OK Config file does not exist. Create config.ini in your project directory'); sys.exit(0)
+    print('NOT OK Project config file does not exist. Create config.ini in your project directory'); sys.exit(0)
 config = configparser.ConfigParser()
 config.read(config_file)
 
-# Check if everything is defined ...
+# Check ifthings are defined ...
 if trial in config.keys():
-    print('OK Trial defined in config.ini')
+    print('OK Trial defined in project config')
 else:
-    print('NOT OK Trial not defined in config.ini'); sys.exit()
+    print('NOT OK Trial not defined in project config'); sys.exit()
 
 # Create the Polo object
-print('HEY Creating Polo object')
+print('HEY Creating Mallet wrapper object')
 p = Mallet(project,trial,mallet_path)
 
 # Change number of topics if passed
@@ -110,15 +107,18 @@ print('HEY Importing mallet file')
 p.mallet_import()
 
 # Run mallet to generate the model
-print('HEY Training topics')
+print('HEY Training topics and generating output files. Mallet is going to talk for a while.\n')
 p.mallet_train()
+print('OK Mallet is finished doing its thing')
 
 # MALLET -> SQLITE
 
 # Generate the SQL
 print('HEY Generating the SQL')
-# Check of the files are there -- stopwords, corpus
 p.create_table_defs()
+
+# Check if the files are there -- stopwords, corpus
+# Haven't done this yet
 
 # Do the imports
 print('HEY Importing the model')

@@ -14,11 +14,10 @@ class Mallet:
     tbl_defs['topicphrase'] = OrderedDict([('topic_id', 'TEXT'), ('topic_phrase', 'TEXT'), ('phrase_count', 'INTEGER'), ('phrase_weight', 'REAL')])
     #tbl_defs['topicword'] = OrderedDict([('word_str','TEXT'),('_topics_','REAL')])
 
-    def __init__(self,project,trial,mallet_path,base_path='projects'):
+    def __init__(self,project,trial,mallet_path,projects_path='projects'):
         self.project = project
         self.trial = trial
-        self.base_path = base_path
-        self.project_path = '%s/%s' % (self.base_path, self.project)
+        self.project_path = '%s/%s' % (projects_path, self.project)
         self.trial_path = '%s/trials/%s' % (self.project_path,self.trial)
         self.mallet_path = mallet_path
         self.verbose = False
@@ -41,11 +40,11 @@ class Mallet:
         self.mallet['import-file']['output'] = '%s/corpus.mallet' % self.trial_path
         self.mallet['import-file']['keep-sequence'] = '' # Delete key to remove option
         self.mallet['import-file']['remove-stopwords'] = '' # Delete key to remove option
-        self.mallet['train-topics']['num-topics'] = 40
-        self.mallet['train-topics']['num-top-words'] = 7
-        self.mallet['train-topics']['num-iterations'] = 100
-        self.mallet['train-topics']['optimize-interval'] = 10
-        self.mallet['train-topics']['num-threads'] = 1
+        self.mallet['train-topics']['num-topics'] = 40 # default
+        self.mallet['train-topics']['num-top-words'] = 7 # default
+        self.mallet['train-topics']['num-iterations'] = 100 # default
+        self.mallet['train-topics']['optimize-interval'] = 10 # default
+        self.mallet['train-topics']['num-threads'] = 1 # default
         self.mallet['train-topics']['input'] = self.mallet['import-file']['output']
         self.mallet['train-topics']['output-topic-keys'] = '%s/model-topic-keys.txt' % self.trial_path
         self.mallet['train-topics']['output-doc-topics'] = '%s/model-doc-topics.txt' % self.trial_path
@@ -250,4 +249,4 @@ class Mallet:
 
 if __name__ == '__main__':
 
-    print('Welcome to Polo. Try play to use it.')
+    print('Welcome to Polo. This is the Mallet class, which makes it easy to run mallet. Try play to use it.')

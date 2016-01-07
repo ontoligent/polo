@@ -72,7 +72,14 @@ else:
     print('NOT OK mallet not found')
     sys.exit(0)
 
-config_file = 'projects/%s/config.ini' % (project)
+projects_path = play_config['DEFAULT']['projects_path']
+if os.path.exists(mallet_path):
+    print('OK projects path found')
+else:
+    print('NOT OK projects path not found. Using default (projects)')
+    projects_path = 'projects'
+
+config_file = '%s/%s/config.ini' % (projects_path,project)
 if os.path.exists(config_file):
     print('OK Config file exists')
 else:

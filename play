@@ -12,8 +12,6 @@ e.g. --num-topics -> z
 import sys, os, configparser
 from polo.mallet import Mallet
 
-
-
 # Get arguments -- expecting project and trial
 args = len(sys.argv)
 

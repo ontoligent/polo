@@ -1,2 +1,4 @@
 projects/demo/trials/default/*
 !projects/demo/trials/default/README.md
+**/__pycache__
+**/.DS_Store

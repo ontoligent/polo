@@ -12,6 +12,8 @@ e.g. --num-topics -> z
 import sys, os, configparser
 from polo.mallet import Mallet
 
+
+
 # Get arguments -- expecting project and trial
 args = len(sys.argv)
 
@@ -55,6 +57,16 @@ else:
     sys.exit(0)
 
 # Do the configs exist?
+play_config_file = 'config-play.ini'
+if os.path.exists(play_config_file):
+    print('OK Play config file exists')
+else:
+    print('NOT OK Play config file does not exist. Create config-play.ini in this project directory');
+    sys.exit(0)
+play_config = configparser.ConfigParser()
+play_config.read(play_config_file)
+mallet_path = play_config['DEFAULT']['mallet_path']
+
 config_file = 'projects/%s/config.ini' % (project)
 if os.path.exists(config_file):
     print('OK Config file exists')
@@ -71,7 +83,7 @@ else:
 
 # Create the Polo object
 print('HEY Creating Polo object')
-p = Mallet(project,trial)
+p = Mallet(project,trial,mallet_path)
 
 # Change number of topics if passed
 if z:

@@ -21,12 +21,13 @@ class Mallet:
     tbl_defs['topicphrase'] = OrderedDict([('topic_id', 'TEXT'), ('topic_phrase', 'TEXT'), ('phrase_count', 'INTEGER'), ('phrase_weight', 'REAL')])
     #tbl_defs['topicword'] = OrderedDict([('word_str','TEXT'),('_topics_','REAL')])
 
-    def __init__(self,project,trial,base_path='projects'):
+    def __init__(self,project,trial,mallet_path,base_path='projects'):
         self.project = project
         self.trial = trial
         self.base_path = base_path
         self.project_path = '%s/%s' % (self.base_path, self.project)
         self.trial_path = '%s/trials/%s' % (self.project_path,self.trial)
+        self.mallet_path = mallet_path
         self.verbose = False
         self.import_config()
         self.mallet_init()
@@ -67,7 +68,7 @@ class Mallet:
                 self.mallet['train-topics'][arg] = self.cfg[self.trial][arg]
 
     def mallet_run_command(self,op):
-        my_cmd = '{0} {1}'.format(self.cfg['DEFAULT']['mallet_path'], op)
+        my_cmd = '{0} {1}'.format(self.mallet_path, op)
         for arg in self.mallet[op]:
             my_cmd += ' --{0} {1}'.format(arg,self.mallet[op][arg])
         self.cmd_response = os.system(my_cmd)

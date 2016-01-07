@@ -1,14 +1,7 @@
-'''
-Polo uses mallet to score -- to score documents, that is.
-
-To do:
--- Add convenience functions to create project directories and trial directories
--- Convert into an executible without having to call python; #! depends on server
-'''
-
-import sys, os, re, configparser, sqlite3, codecs, math 
+import os, re, configparser, sqlite3, codecs
 from collections import OrderedDict
 from lxml import etree
+from math import log
 
 class Mallet:
     
@@ -189,7 +182,7 @@ class Mallet:
                                 tw = float(row[int(i)+1])
                                 tws[tn] = tw
                                 if tw != 0:
-                                    H += tw * math.log(tw)
+                                    H += tw * log(tw)
                             values.append(-1 * H) # topic_entropy
                             for tw in tws:
                                 values.append(tw) # topic weights (t1 ... tn)

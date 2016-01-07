@@ -1,6 +1,1 @@
-projects/*
-!projects/demo
-!projects/demo/*
-!projects/demo/trials
-!projects/demo/trials/default
 projects/demo/trials/default/*

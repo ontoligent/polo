@@ -39,6 +39,19 @@ Or, if you wanted to change the number of topics:
 ./play demo default 100
 ```
 
+And, you you want to mess with the number of iterations, just add the
+new value after the number of topics:
+
+```
+./play demo default 100 1000
+```
+
+In fact, if you want to see how it works right now, issue the above
+command in your Polo application root, assuming that (1) you have
+MALLET installed, and two you have Python 3 installed with the usual
+data science stack (including pandas). See **Requirements** for more
+info.
+
 In addition to making it easier to generate topic models, the
 resulting files are converted into a single SQLite database file that
 implements a simple and intuitive data model of the topic model. This
@@ -51,7 +64,7 @@ an interactive web or desktop application for end users to explore.
 Polo is so named because in the game of polo, players use
 mallets. That's it.
 
-## Synopsis
+## Getting Started
 
 To get started using Polo, the first thing to do is grab the source
 code from git hub and clone it into a local directory. You can call it
@@ -97,6 +110,11 @@ projects\
 			trial1\
 			trial2\
 ```
+
+# Requirements
+
+# More Explanation
+
 This directory structure reflects the following assumptions:
 
 * There is a **project directory** where all of your source data and
@@ -105,21 +123,23 @@ This directory structure reflects the following assumptions:
   created for you when you install Polo. The project directory
   contains **three resources**:
 
-    * A **corpus directory**, which contains your corpus files and extra
-    stopwords list. By convention, your corpus file is called `corpus.csv`
-    and is a comma delimmited file with three columns -- a unique document
-    ID, a label of some kind (which must be there, even if it is something
-    you have to make up), and the 'document' itself, which for a topic
-    model is just the unit of text you are analyzing, which may be a
-    paragraph or any other text segment, and not necessarily a
-    stand-alone document. The extra stopwords file is called
-    `extra-stopwords.txt` and contains stopwords beyond those used by
-    MALLET itself.
+* A **corpus directory**, which contains your corpus files and extra
+stopwords list. By convention, your corpus file is called `corpus.csv`
+and is a comma delimmited file with three columns -- a unique document
+ID, a label of some kind (which must be there, even if it is something
+you have to make up), and the 'document' itself, which for a topic
+model is just the unit of text you are analyzing, which may be a
+paragraph or any other text segment, and not necessarily a
+stand-alone document. The extra stopwords file is called
+`extra-stopwords.txt` and contains stopwords beyond those used by
+MALLET itself.
 
 * A **trials durectory**, which contains subdirectories for each of
 your topic model trials. Each time you want to run a trial, you create
-a subdirectory -- say `trial` -- and then put an entry for that trial
-in the project's `config.ini` file.
+a subdirectory -- say `trial1` -- and then put an entry for that trial
+in the project's `config.ini` file (see next item), The trials
+directory is where Polo will put your resulting SQLite database. You
+will find it there 
 
 * A **config.ini** file to define some things about your project and
 specific parameters for each. The sample config file that Polo ships
@@ -128,7 +148,7 @@ with looks like this:
 ```
 [DEFAULT]
 title: Polo Demo
-owner: rca2t@virignia.edu
+owner: foo@virignia.edu
 
 [default]
 num-topics: 60
@@ -138,13 +158,22 @@ optimize-interval: 10
 num-threads: 1
 ```
 
+This file describes a project and a single trail called 'default'.
+
+Once you have created a 
+
+# Limitations
+
 Some qualifications to the preceeding assumptions are:
 
 * Polo only works with a CSV file for its corpus -- and not a
 directory of files, as MALLET is capable of doing.
 
-* You are responsible for creating the corpus file itself and putting it into
-the `corpus` subdirectory. 
+* You are responsible for creating the corpus file itself and putting
+it into the `corpus` subdirectory. Right now, Polo provides no
+utilities for creating this file, but since this is such an important
+part of the process, I am probably going to add something to help in
+this area.
 
 * Polo uses MALLET's built in stopwords file and this can't be
   changed.  A future version of Polo will allow users to adjust this

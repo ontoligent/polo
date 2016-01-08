@@ -60,7 +60,8 @@ cloned code base and edit the file `config-play.ini`.
 
 ```
 git clone
-git@github.com:ontoligent/polo.git polo_root cd polo_root
+git@github.com:ontoligent/polo.git polo_root
+cd polo_root
 vi config-play.ini
 ```
 
@@ -68,7 +69,7 @@ In the config file, add the values for your mallet installation and
 the place where your Polo projects will live. The meaning and
 strucutre of this directory will be explained below. Note that you
 need to have Mallet already installed on your system. (You can find
-out how do that here -- http://mallet.cs.umass.edu. However, its path
+out how do that here -- http://mallet.cs.umass.edu.) However, its path
 does not need to be in the environment; you can just put it in the
 config file directly, for example like so:
 
@@ -78,6 +79,18 @@ mallet_path: /usr/local/bin/mallet
 projects_path: projects
 ```
 
-In the
+This lets Polo know where MALLET is and where your source files
+live. Of course, to use Polo, you need some source data -- a corpus
+file against which to train a topic model. Polo organizes this
+information in the following way:
 
-
+```
+projects\
+	project1\
+		config.ini
+		corpus\
+			corpus.csv
+			extra-stopwords.txt
+		trials\
+			trial1\
+```

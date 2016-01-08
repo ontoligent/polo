@@ -102,6 +102,14 @@ This directory structure reflects the following assumptions:
 * There is a **project directory** where all of your source data and
   generated output will live. By default, this directory lives in your
   Polo application root and is called `projects`. It is automatically
-  created for you when you install Polo.
+  created for you when you install Polo. The project directory
+  contains **three resources**:
 
-*  
+* A **corpus directory**, which contains your corpus files and extra
+stopwords list,
+
+* A **trials durectory**, which contains subdirectories for each of
+your topic model trials
+
+* A **config.ini** file to define some things about your project and
+specific parameters for each

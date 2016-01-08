@@ -47,11 +47,20 @@ new value after the number of topics:
 ./play demo default 100 1000
 ```
 
-In fact, if you want to see how it works right now, issue the above
-command in your Polo application root, assuming that (1) you have
-MALLET installed and have entered its path into the `config-play.ini`
-file, and (2) you have Python 3 installed. See **Requirements** for
-more info.
+At the end of the process, you will see something like this:
+
+```
+--------------------------------------------------------------------------------
+Enter the following to see your new database right away:
+	sqlite3 projects/demo/trials/default/demo-default-z60-i1000.db
+--------------------------------------------------------------------------------
+```
+
+If you want to see how it works right now, issue the above command in
+your Polo application root, assuming that (1) you have MALLET
+installed and have entered its path into the `config-play.ini` file,
+and (2) you have Python 3 installed. See **Requirements** for more
+info.
 
 In addition to making it easier to generate topic models, the
 resulting files are converted into **a single SQLite database** file that

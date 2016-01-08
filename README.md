@@ -95,8 +95,11 @@ This lets Polo know where MALLET is and where your source files
 live. Of course, to use Polo, you need some source data -- a corpus
 file against which to train a topic model along with an extra
 stopwords file, plus some configuration information to tell MALLET how
-to train the model. Polo organizes this information in the following
-way:
+to train the model.
+
+Next, take some time to become familiar with how Polo organizes
+things. Polo organizes your corpus data and output files in the
+following way:
 
 ```
 projects\
@@ -109,9 +112,9 @@ projects\
 			default\
 ```
 
-This shows the directory structure of the demo corpus that comes with
-Polo. To create your own, just replicate this structure and add your
-own contents, and edit the config file to match your needs. The config
+This is the directory structure of the demo corpus that comes with
+Polo. To create your own project, just replicate this structure, add your
+own contents, and then edit the config file to match your needs. The config
 file that ships with Polo looks like this:
 
 ```
@@ -142,7 +145,10 @@ you have to make up), and the 'document' itself, which for a topic
 model is just the unit of text you are analyzing, which may be a
 paragraph or any other text segment, and not necessarily a stand-alone
 document. The extra stopwords file is called `extra-stopwords.txt` and
-contains stopwords beyond those used by MALLET itself.
+contains stopwords beyond those used by MALLET itself. Note that the
+stopwords file must exist, even if it is empty, and it must be named
+as listed here. Ditto for the corpus file (although it better have
+some content, right?)
 * A **trials durectory**, which contains subdirectories for each of
 your topic model trials. Each time you want to run a trial, you create
 a subdirectory -- say `trial1` -- and then put an entry for that trial
@@ -162,8 +168,11 @@ and a trial directory to the latter, and you have created a
 
 `./play myproject mytrial`
 
-And then copy this resulting SQLite file to wherever you want to work
-with it. The database files will be found in the trial directory , and
+Remember you can add arguments for number of topics and number of
+iterations to this command if you want to override what's in the
+config file.
+
+After running this, the resulting SQLite file will be found in the trial directory, and
 will be named as follows:
 
 `myproject-mytrial-zX-iY.db`
@@ -172,10 +181,12 @@ Where 'myproject' is the name of your project, 'mytrial' is the name
 of your trial, 'X' is the number of topics, and 'Y' is the number of
 iterations.
 
+Copy this file to wherever it can be useful. Think of it as a
+portable, durable record of a specific topic model trial.
+
 # Requirements
 
 Polo requires the following;
-
 * MALLET. I am using the latest version (as of 8 JAN
   2016) and I have no idea how much it has changed from the earlier
 versions.
@@ -184,19 +195,22 @@ configparser, sqlite3, codecs, collections, lxml, math`. I use the
 Anaconda distribution and I believe that I had to install `lxml`
 separately.
 
+Also:
+* Properly prepared corpus data.
+* A machine that can run MALLET, especially if your corpus is really
+big and you want to train lots of topics.
+
 # Limitations
 
 Some qualifications to the preceeding assumptions are:
 
 * Polo only works with a CSV file for its corpus -- and not a
 directory of files, as MALLET is capable of doing.
-
 * You are responsible for creating the corpus file itself and putting
 it into the `corpus` subdirectory. Right now, Polo provides no
 utilities for creating this file, but since this is such an important
 part of the process, I am probably going to add something to help in
 this area.
-
 * Polo uses MALLET's built in stopwords file and this can't be
   changed.  A future version of Polo will allow users to adjust this
   default setting.

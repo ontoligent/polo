@@ -39,12 +39,14 @@ Or, if you wanted to change the number of topics:
 ./play demo default 100
 ```
 
-The resulting files are converted into a single SQLite database file
-that implements a simple and intuitive data model of the topic
-model. This file may then be copied anywhere and used for a variety of
-purposes, such as a resource for an R or Python analytics session, or
-at the bottom of a stack for an interactive web or desktop application
-for end users to explore.
+In addition to making it easier to generate topic models, the
+resulting files are converted into a single SQLite database file that
+implements a simple and intuitive data model of the topic model. This
+data model adds some extra data to the source data as well, such as
+the topic entropy for each document. The database file may then be
+copied anywhere and used for a variety of purposes, such as a resource
+for an R or Python analytics session, or at the bottom of a stack for
+an interactive web or desktop application for end users to explore.
 
 Polo is so named because in the game of polo, players use
 mallets. That's it.

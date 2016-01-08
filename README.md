@@ -134,7 +134,6 @@ Polo's directory structure reflects the following assumptions:
   Polo application root and is called `projects`. It is automatically
   created for you when you install Polo. The project directory
   contains **three resources**:
-
 * A **corpus directory**, which contains your corpus files and extra
 stopwords list. By convention, your corpus file is called `corpus.csv`
 and is a comma delimmited file with three columns -- a unique document
@@ -144,13 +143,11 @@ model is just the unit of text you are analyzing, which may be a
 paragraph or any other text segment, and not necessarily a stand-alone
 document. The extra stopwords file is called `extra-stopwords.txt` and
 contains stopwords beyond those used by MALLET itself.
-
 * A **trials durectory**, which contains subdirectories for each of
 your topic model trials. Each time you want to run a trial, you create
 a subdirectory -- say `trial1` -- and then put an entry for that trial
 in the project's `config.ini` file (see next item), The trials
 directory is where Polo will put your resulting SQLite database.
-
 * A **config.ini** file to define some things about your project and
 specific parameters for each. Users of MALLET will recognize that the
 keys in the trials section are just the command line keys for MALLET's

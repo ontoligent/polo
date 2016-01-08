@@ -10,7 +10,7 @@ class Mallet:
     tbl_defs['doc'] = OrderedDict([('doc_id', 'TEXT'), ('doc_label', 'TEXT'), ('doc_content', 'TEXT')])
     tbl_defs['topic'] = OrderedDict([('topic_id', 'TEXT'), ('topic_alpha', 'REAL'), ('total_tokens', 'INTEGER'), ('topic_words', 'TEXT')])
     tbl_defs['doctopic'] = OrderedDict([('doc_id', 'TEXT'), ('doc_label', 'TEXT'), ('topic_entropy', 'REAL'), ('_topics_', 'REAL')])
-    tbl_defs['wordtopic'] = OrderedDict([('word_id', 'INTEGER'), ('word_str', 'TEXT'), ('_topics_', 'INTEGER')])
+    tbl_defs['wordtopic'] = OrderedDict([('word_id', 'INTEGER'), ('word_str', 'TEXT'), ('_topics_', 'INTEGER'),('word_sum','INTEGER')])
     tbl_defs['topicphrase'] = OrderedDict([('topic_id', 'TEXT'), ('topic_phrase', 'TEXT'), ('phrase_count', 'INTEGER'), ('phrase_weight', 'REAL')])
     #tbl_defs['topicword'] = OrderedDict([('word_str','TEXT'),('_topics_','REAL')])
 
@@ -194,13 +194,18 @@ class Mallet:
                             values.append(row[0]) # word_id
                             values.append(row[1]) # word_str
                             counts = {} # word_counts
+                            word_sum = 0
                             for x in row[2:]:
                                 y = x.split(':') # y[0] = topic num, y[1] = word count
                                 counts[str(y[0])] = y[1]
                             for i in range(int(z)):
                                 tn = str(i)
-                                if tn in counts.keys(): values.append(counts[tn])
-                                else: values.append(0)
+                                if tn in counts.keys():
+                                    word_sum += int(counts[tn])
+                                    values.append(counts[tn])
+                                else:
+                                    values.append(0)
+                            values.append(word_sum)
     
                         elif table == 'topic':
                             row = line.split('\t')

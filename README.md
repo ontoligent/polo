@@ -98,8 +98,10 @@ projects\
 			trial2\
 ```
 This directory structure reflects the following assumptions:
-* There is a project directory where all of your source data and
+
+* There is a **project directory** where all of your source data and
   generated output will live. By default, this directory lives in your
-  polo application root and is called `projects`. It is automatically
+  Polo application root and is called `projects`. It is automatically
   created for you when you install Polo.
-  * 
+
+*  

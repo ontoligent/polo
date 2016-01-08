@@ -107,14 +107,13 @@ This directory structure reflects the following assumptions:
 
 * A **corpus directory**, which contains your corpus files and extra
 stopwords list. By convention, your corpus file is called `corpus.csv`
-and it a comma delimmited file with three columns -- a document ID, a
+and is a comma delimmited file with three columns -- a document ID, a
 label of some kind (which must be there, even if it is filler), and
 the 'document' itself, which for a topic model is just the unit of
 text you are analyzing, which may be a paragraph or any other segment
 of text, and not necessarily a stand-alone document. The extra
 stopwords file is called `extra-stopwords.txt` and contains stopwords
-beyond those used by MALLET itself. (A future version of Polo will
-allow users to adjust this default setting.)
+beyond those used by MALLET itself.
 
 * A **trials durectory**, which contains subdirectories for each of
 your topic model trials. Each time you want to run a trial, you create
@@ -123,3 +122,15 @@ in the project's `config.ini` file.
 
 * A **config.ini** file to define some things about your project and
 specific parameters for each
+
+Some qualifications to the preceeding assumptions are:
+
+* Polo only works with a CSV file for its corpus -- and not a
+directory of files, as MALLET is capable of doing also.
+
+* You are responsible for creating the corpus file and putting it into
+the `corpus` subdirectory.
+
+* Polo uses MALLET's built in stopwords file and this can't be
+  changed.  A future version of Polo will allow users to adjust this
+  default setting.

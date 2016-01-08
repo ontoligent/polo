@@ -81,8 +81,10 @@ projects_path: projects
 
 This lets Polo know where MALLET is and where your source files
 live. Of course, to use Polo, you need some source data -- a corpus
-file against which to train a topic model. Polo organizes this
-information in the following way:
+file against which to train a topic model along with an extra
+stopwords file, plus some configuration information to tell MALLET how
+to train the model. Polo organizes this information in the following
+way:
 
 ```
 projects\

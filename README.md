@@ -6,7 +6,8 @@ Polo is basically a wrapper around MALLET's topic model utility to
 make working with its output files easier. With Polo, you specify your
 topic model parameters in a configuration file and then generate
 results with a simple command - one much simpler than the one that
-comes with MALLET. For example, instead of doing this:
+comes with MALLET. For example, instead of doing this each time you
+want to train a model against a corpus:
 
 ```
 usr/local/bin/mallet import-file --keep-sequence \

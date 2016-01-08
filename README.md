@@ -12,9 +12,10 @@ cd polo_root
 vi config-play.ini
 ```
 In the config file, add the values for your mallet installation and
-the place where your Polo projects will level. The meaning and
+the place where your Polo projects will live. The meaning and
 strucutre of this directory will be explained below. Note that you
-need to have mallet already installed on your system. However, its path
+need to have Mallet already installed on your system. (You can find
+out how do that (here)[http://mallet.cs.umass.edu/]. However, its path
 does not need to be in the environment; you can just put it in the
 config file directly, for example like so:
 ```

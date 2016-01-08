@@ -63,6 +63,7 @@ class Mallet:
     def mallet_run_command(self,op):
         my_cmd = '{0} {1}'.format(self.mallet_path, op)
         my_args = ['--{0} {1}'.format(arg,self.mallet[op][arg]) for arg in self.mallet[op]]
+        print('{0} {1}'.format(my_cmd, ' '.join(my_args)))
         self.cmd_response = os.system('{0} {1}'.format(my_cmd, ' '.join(my_args)))
         
     def mallet_import(self):

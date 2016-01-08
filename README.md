@@ -49,9 +49,8 @@ new value after the number of topics:
 
 In fact, if you want to see how it works right now, issue the above
 command in your Polo application root, assuming that (1) you have
-MALLET installed, and (2) you have Python 3 installed with the usual
-data science stack (including pandas). See **Requirements** for more
-info.
+MALLET installed, and (2) you have Python 3 installed. See
+**Requirements** for more info.
 
 In addition to making it easier to generate topic models, the
 resulting files are converted into **a single SQLite database** file that
@@ -128,11 +127,7 @@ optimize-interval: 10
 num-threads: 1
 ```
 
-# Requirements
-
-# More Explanation
-
-This directory structure reflects the following assumptions:
+Polo's directory structure reflects the following assumptions:
 
 * There is a **project directory** where all of your source data and
   generated output will live. By default, this directory lives in your
@@ -170,21 +165,30 @@ directory, and added a corpus file and stopwords file to the former
 and a trial directory to the latter, and you have created a
 `config.ini` file for the project, you can start doing this:
 
-```
-./play myproject mytrial
-```
+`./play myproject mytrial`
 
 And then copy this resulting SQLite file to wherever you want to work
 with it. The database files will be found in the trial directory , and
 will be named as follows:
 
-```
-myproject-mytrial-zX-iY.db
-```
+`myproject-mytrial-zX-iY.db`
 
 Where 'myproject' is the name of your project, 'mytrial' is the name
 of your trial, 'X' is the number of topics, and 'Y' is the number of
-iterations. 
+iterations.
+
+# Requirements
+
+Polo requires the following;
+
+* MALLET is installed. I am using the latest version (as of 8 JAN
+  2016) and I have no idea how much it has changed from the earlier
+  versions.
+
+* Python 3. I am using 3.5 and import the following modules: `os, re,
+configparser, sqlite3, codecs, collections, lxml, math`. I use the
+Anaconda distribution and I believe that I had to install `lxml`
+separately.
 
 # Limitations
 

@@ -56,7 +56,7 @@ Enter the following to see your new database right away:
 --------------------------------------------------------------------------------
 ```
 
-If you want to see how it works right now, issue the above command in
+If you want to see how it works right now, issue the above `play` command in
 your Polo application root, assuming that (1) you have MALLET
 installed and have entered its path into the `config-play.ini` file,
 and (2) you have Python 3 installed. See **Requirements** for more

@@ -73,8 +73,7 @@ anything; `polo_root` is a good choice. Change directories into the
 cloned code base and edit the file `config-play.ini` in your favorite editor:
 
 ```
-git clone
-git@github.com:ontoligent/polo.git polo_root
+git clone git@github.com:ontoligent/polo.git polo_root
 cd polo_root
 emacs config-play.ini
 ```

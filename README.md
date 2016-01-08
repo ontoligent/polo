@@ -227,4 +227,8 @@ part of the process, I am probably going to add something to help in
 this area.
 * Polo uses MALLET's built in stopwords file and this can't be
   changed.  A future version of Polo will allow users to adjust this
-  default setting.
+default setting.
+* There are a bunch of other MALLET settings that are hard
+coded. These may be exposed later; for now, my goal is to provide a
+straightforward wrapper to simplify what I find to be the majority of
+work involved in using MALLET.

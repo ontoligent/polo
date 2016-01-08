@@ -49,12 +49,12 @@ new value after the number of topics:
 
 In fact, if you want to see how it works right now, issue the above
 command in your Polo application root, assuming that (1) you have
-MALLET installed, and two you have Python 3 installed with the usual
+MALLET installed, and (2) you have Python 3 installed with the usual
 data science stack (including pandas). See **Requirements** for more
 info.
 
 In addition to making it easier to generate topic models, the
-resulting files are converted into a single SQLite database file that
+resulting files are converted into **a single SQLite database** file that
 implements a simple and intuitive data model of the topic model. This
 data model adds some extra data to the source data as well, such as
 the topic entropy for each document. The database file may then be

@@ -204,6 +204,10 @@ versions.
 configparser, sqlite3, codecs, collections, lxml, math`. I use the
 Anaconda distribution and I believe that I had to install `lxml`
 separately.
+* **SQLite3**. You don't need this to run Polo, but to view the
+results you do. Fortunately, Python comes with built in support for
+it. I also recommend using SQLiteStudio <http://sqlitestudio.pl/> to
+view and interact with your databases.
 
 Also:
 * Properly prepared corpus data.

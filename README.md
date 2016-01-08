@@ -68,15 +68,15 @@ mallets. That's it.
 ## Getting Started
 
 To get started using Polo, the first thing to do is grab the source
-code from git hub and clone it into a local directory. You can call it
-anything but `polo_root` is a good choice. Change directories into the
-cloned code base and edit the file `config-play.ini`.
+code from github and clone it into a local directory. You can call the directory
+anything; `polo_root` is a good choice. Change directories into the
+cloned code base and edit the file `config-play.ini` in your favorite editor:
 
 ```
 git clone
 git@github.com:ontoligent/polo.git polo_root
 cd polo_root
-vi config-play.ini
+emacs config-play.ini
 ```
 
 In the config file, add the values for your mallet installation and

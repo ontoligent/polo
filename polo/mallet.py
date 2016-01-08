@@ -12,6 +12,7 @@ class Mallet:
     tbl_defs['doctopic'] = OrderedDict([('doc_id', 'TEXT'), ('doc_label', 'TEXT'), ('topic_entropy', 'REAL'), ('_topics_', 'REAL')])
     tbl_defs['wordtopic'] = OrderedDict([('word_id', 'INTEGER'), ('word_str', 'TEXT'), ('_topics_', 'INTEGER'),('word_sum','INTEGER')])
     tbl_defs['topicphrase'] = OrderedDict([('topic_id', 'TEXT'), ('topic_phrase', 'TEXT'), ('phrase_count', 'INTEGER'), ('phrase_weight', 'REAL')])
+    tbl_defs['config'] = OrderedDict([('key','TEXT'),('value','TEXT')])
     #tbl_defs['topicword'] = OrderedDict([('word_str','TEXT'),('_topics_','REAL')])
 
     def __init__(self,project,trial,mallet_path,projects_path='projects'):
@@ -105,9 +106,10 @@ class Mallet:
         with sqlite3.connect(dbfile) as conn:
             cur = conn.cursor()
 
-            # Create a table for the config data
+            # Handle config data
             cur.execute('DROP TABLE IF EXISTS config')
-            cur.execute('CREATE TABLE config (key TEXT, value TEXT)')
+            cur.execute(self.tbl_sql['config'])
+            #cur.execute('CREATE TABLE config (key TEXT, value TEXT)')
             conn.commit()
             for k1 in self.mallet:
                 for k2 in self.mallet[k1]:
@@ -134,6 +136,7 @@ class Mallet:
                     if self.verbose: print('HEY Loading csv file',src_file)
                 
                     # Handle special case of topicword
+                    # Not using this table -- too big, and effectively redundant with wordtopic
                     '''
                     if table == 'topicword':
                         weights = {}
@@ -256,5 +259,5 @@ class Mallet:
         return 1
 
 if __name__ == '__main__':
-
+    
     print('Welcome to Polo. This is the Mallet class, which makes it easy to run mallet. Try play to use it.')

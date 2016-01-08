@@ -10,12 +10,12 @@ comes with MALLET. For example, instead of doing this each time you
 want to train a model against a corpus:
 
 ```
-usr/local/bin/mallet import-file --keep-sequence \
+mallet import-file --keep-sequence \
 --output projects/demo/trials/default/corpus.mallet \
 --input projects/demo/corpus/corpus.csv --remove-stopwords \
 --extra-stopwords projects/demo/corpus/extra-stopwords.txt
 
-/usr/local/bin/mallet train-topics --num-iterations 100 \
+mallet train-topics --num-iterations 100 \
 --optimize-interval 10 --num-topics 10 --word-topic-counts-file \ 
 projects/demo/trials/default/model-word-topic-counts.txt \
 --xml-topic-phrase-report

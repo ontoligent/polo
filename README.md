@@ -34,7 +34,7 @@ You can just do this:
 ./play demo default
 ```
 
-Or, if you wanted to change the number of topics:
+Or, if you want to change the number of topics:
 
 ```
 ./play demo default 100

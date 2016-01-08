@@ -101,14 +101,31 @@ way:
 
 ```
 projects\
-	my_project\
+	demo\
 		config.ini
 		corpus\
 			corpus.csv
 			extra-stopwords.txt
 		trials\
-			trial1\
-			trial2\
+			default\
+```
+
+This shows the directory structure of the demo corpus that comes with
+Polo. To create your own, just replicate this structure and add your
+own contents, and edit the config file to match your needs. The config
+file that ships with Polo looks like this:
+
+```
+[DEFAULT]
+title: Polo Demo
+owner: foo@virignia.edu
+
+[default]
+num-topics: 60
+num-top-words: 10
+num-iterations: 1000
+optimize-interval: 10
+num-threads: 1
 ```
 
 # Requirements
@@ -142,25 +159,32 @@ directory is where Polo will put your resulting SQLite database. You
 will find it there 
 
 * A **config.ini** file to define some things about your project and
-specific parameters for each. The sample config file that Polo ships
-with looks like this:
+specific parameters for each. Users of MALLET will recognize that the
+keys in the trials section are just the command line keys for MALLET's
+`train topics` function. Given this, you can add more keys if you'd
+like. Note, however, that Polo takes care of defining the output
+files, so you don't need to add these.
+
+So, once you have create a project directory with a corpus and trials
+directory, and added a corpus file and stopwords file to the former
+and a trial directory to the latter, and you have created a
+`config.ini` file for the project, you can start doing this:
 
 ```
-[DEFAULT]
-title: Polo Demo
-owner: foo@virignia.edu
-
-[default]
-num-topics: 60
-num-top-words: 10
-num-iterations: 1000
-optimize-interval: 10
-num-threads: 1
+./play myproject mytrial
 ```
 
-This file describes a project and a single trail called 'default'.
+And then copy this resulting SQLite file to wherever you want to work
+with it. The database files will be found in the trial directory , and
+will be named as follows:
 
-Once you have created a 
+```
+myproject-mytrial-zX-iY.db
+```
+
+Where 'myproject' is the name of your project, 'mytrial' is the name
+of your trial, 'X' is the number of topics, and 'Y' is the number of
+iterations. 
 
 # Limitations
 

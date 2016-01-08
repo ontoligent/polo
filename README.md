@@ -121,15 +121,29 @@ a subdirectory -- say `trial` -- and then put an entry for that trial
 in the project's `config.ini` file.
 
 * A **config.ini** file to define some things about your project and
-specific parameters for each
+specific parameters for each. The sample config file that Polo ships
+with looks like this:
+
+```
+[DEFAULT]
+title: Polo Demo
+owner: rca2t@virignia.edu
+
+[default]
+num-topics: 60
+num-top-words: 10
+num-iterations: 1000
+optimize-interval: 10
+num-threads: 1
+```
 
 Some qualifications to the preceeding assumptions are:
 
 * Polo only works with a CSV file for its corpus -- and not a
-directory of files, as MALLET is capable of doing also.
+directory of files, as MALLET is capable of doing.
 
-* You are responsible for creating the corpus file and putting it into
-the `corpus` subdirectory.
+* You are responsible for creating the corpus file itself and putting it into
+the `corpus` subdirectory. 
 
 * Polo uses MALLET's built in stopwords file and this can't be
   changed.  A future version of Polo will allow users to adjust this

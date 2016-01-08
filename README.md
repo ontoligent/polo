@@ -9,17 +9,21 @@ results with a simple command - one much simpler than the one that
 comes with MALLET. For example, instead of doing this:
 
 ```
-usr/local/bin/mallet import-file --keep-sequence  --output projects/demo/trials/default/corpus.mallet --input projects/demo/corpus/corpus.csv --remove-stopwords  --extra-stopwords projects/demo/corpus/extra-stopwords.txt
+usr/local/bin/mallet import-file --keep-sequence \
+--output projects/demo/trials/default/corpus.mallet \
+--input projects/demo/corpus/corpus.csv --remove-stopwords \
+--extra-stopwords projects/demo/corpus/extra-stopwords.txt
 
-/usr/local/bin/mallet train-topics --num-iterations 100
---optimize-interval 10 --num-topics 10 --word-topic-counts-file
-projects/demo/trials/default/model-word-topic-counts.txt
+/usr/local/bin/mallet train-topics --num-iterations 100 \
+--optimize-interval 10 --num-topics 10 --word-topic-counts-file \ 
+projects/demo/trials/default/model-word-topic-counts.txt \
 --xml-topic-phrase-report
-projects/demo/trials/default/model-topic-phrase-report.xml
---num-top-words 10 --xml-topic-report
-projects/demo/trials/default/model-topic-report.xml
---output-doc-topics projects/demo/trials/default/model-doc-topics.txt
---input projects/demo/trials/default/corpus.mallet --output-topic-keys
+projects/demo/trials/default/model-topic-phrase-report.xml \
+--num-top-words 10 \
+--xml-topic-report projects/demo/trials/default/model-topic-report.xml \
+--output-doc-topics projects/demo/trials/default/model-doc-topics.txt \
+--input projects/demo/trials/default/corpus.mallet \
+--output-topic-keys \
 projects/demo/trials/default/model-topic-keys.txt --num-threads 1
 ```
 
@@ -36,14 +40,14 @@ Or, if you wanted to change the number of topics:
 ```
 
 The resulting files are converted into a single SQLite database file
-that implements an simple and intuitive data model of the topic
-model. This file can be copied anywhere and used for a variety of
+that implements a simple and intuitive data model of the topic
+model. This file may then be copied anywhere and used for a variety of
 purposes, such as a resource for an R or Python analytics session, or
 at the bottom of a stack for an interactive web or desktop application
 for end users to explore.
 
 Polo is so named because in the game of polo, players use
-mallets. That's it. 
+mallets. That's it.
 
 ## Synopsis
 

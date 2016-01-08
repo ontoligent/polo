@@ -187,10 +187,10 @@ portable, durable record of a specific topic model trial.
 # Requirements
 
 Polo requires the following;
-* MALLET. I am using the latest version (as of 8 JAN
+* **MALLET**. I am using the latest version (as of 8 JAN
   2016) and I have no idea how much it has changed from the earlier
 versions.
-* Python 3. I am using 3.5 and import the following modules: `os, re,
+* **Python 3**. I am using 3.5 and import the following modules: `os, re,
 configparser, sqlite3, codecs, collections, lxml, math`. I use the
 Anaconda distribution and I believe that I had to install `lxml`
 separately.

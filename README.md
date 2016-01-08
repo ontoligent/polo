@@ -40,7 +40,7 @@ Or, if you want to change the number of topics:
 ./play demo default 100
 ```
 
-And, you you want to mess with the number of iterations, just add the
+If you want to mess with the number of iterations, just add the
 new value after the number of topics:
 
 ```
@@ -141,17 +141,15 @@ and is a comma delimmited file with three columns -- a unique document
 ID, a label of some kind (which must be there, even if it is something
 you have to make up), and the 'document' itself, which for a topic
 model is just the unit of text you are analyzing, which may be a
-paragraph or any other text segment, and not necessarily a
-stand-alone document. The extra stopwords file is called
-`extra-stopwords.txt` and contains stopwords beyond those used by
-MALLET itself.
+paragraph or any other text segment, and not necessarily a stand-alone
+document. The extra stopwords file is called `extra-stopwords.txt` and
+contains stopwords beyond those used by MALLET itself.
 
 * A **trials durectory**, which contains subdirectories for each of
 your topic model trials. Each time you want to run a trial, you create
 a subdirectory -- say `trial1` -- and then put an entry for that trial
 in the project's `config.ini` file (see next item), The trials
-directory is where Polo will put your resulting SQLite database. You
-will find it there 
+directory is where Polo will put your resulting SQLite database.
 
 * A **config.ini** file to define some things about your project and
 specific parameters for each. Users of MALLET will recognize that the
@@ -181,10 +179,9 @@ iterations.
 
 Polo requires the following;
 
-* MALLET is installed. I am using the latest version (as of 8 JAN
+* MALLET. I am using the latest version (as of 8 JAN
   2016) and I have no idea how much it has changed from the earlier
-  versions.
-
+versions.
 * Python 3. I am using 3.5 and import the following modules: `os, re,
 configparser, sqlite3, codecs, collections, lxml, math`. I use the
 Anaconda distribution and I believe that I had to install `lxml`

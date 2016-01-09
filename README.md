@@ -5,9 +5,10 @@
 Polo is a wrapper around MALLET's topic model utility to make it
 easier to work with its commands and output files. With Polo, you
 specify your command line arguments in a configuration file and then
-generate results into a single database file with a simple command - one much simpler than the one
-that comes with MALLET. For example, instead of doing this each time
-you want to train a model against a corpus:
+generate results into a single database file with a simple command -
+one much simpler than the one that comes with MALLET. For example,
+instead of doing this each time you want to train a model against a
+corpus:
 
 ```
 mallet import-file --keep-sequence \
@@ -108,8 +109,8 @@ stopwords file, plus some configuration information to tell MALLET how
 to train the model.
 
 Next, take some time to become familiar with how Polo organizes
-things. Polo organizes your corpus data and output files in the
-following way:
+things. Polo puts your config, corpus, and output files in the
+following directory structure:
 
 ```
 projects\
@@ -120,6 +121,9 @@ projects\
 			extra-stopwords.txt
 		trials\
 			default\
+				demo-default-z40-i500.db
+				corpus.mallet
+				. . .
 ```
 
 This is the directory structure of the demo corpus that comes with

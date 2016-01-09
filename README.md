@@ -163,7 +163,7 @@ contains stopwords beyond those used by MALLET itself. Note that the
 stopwords file must exist, even if it is empty, and it must be named
 as listed here. Ditto for the corpus file (although it better have
 some content, right?)
-* A **trials durectory**, which contains subdirectories for each of
+* A **trials directory**, which contains subdirectories for each of
 your topic model trials. Each time you want to run a trial, you create
 a subdirectory -- say `trial1` -- and then put an entry for that trial
 in the project's `config.ini` file (see next item), The trials

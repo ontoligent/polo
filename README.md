@@ -121,7 +121,7 @@ projects\
 			extra-stopwords.txt
 		trials\
 			default\
-				demo-default-z40-i500.db
+				demo-default-z60-i1000.db
 				corpus.mallet
 				. . .
 ```

@@ -228,7 +228,9 @@ directory of files, as MALLET is capable of doing.
 it into the `corpus` subdirectory. Right now, Polo provides no
 utilities for creating this file, but since this is such an important
 part of the process, I am probably going to add something to help in
-this area.
+this area. To do this, I will probably use **Gensim**, since it provides a
+pretty complete toolkit for working with topic models, and in fact has
+its own wrapper for MALLET.
 * Polo uses MALLET's built in stopwords file and this can't be
   changed.  A future version of Polo will allow users to adjust this
 default setting.

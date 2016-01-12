@@ -207,24 +207,37 @@ class MalletModel:
                     continue
                 values = []
                 row = line.split('\t')
-                print(len(row))
                 info = row[1].split(',') 
                 values.append(info[0]) # doc_id
                 values.append(info[1]) # doc_label
                 H = 0 # Entropy
                 tws = [0 for i in range(int(self.z))]
-                for i in range(2,int(self.z)*2,2):
-                    print(i,row[i],row[i+1])
-                    #tn = int(row[int(i)])
-                    tn = int(row[i])
-                    #tw = float(row[int(i)+1])
-                    tw = float(row[i+1])
-                    tws[tn] = tw
-                    if tw != 0:
-                        H += tw * log(tw)
+
+                # Determine how many cols, since MALLET does it two ways ...
+                src_type = len(row) - 2
+                
+                # Type A -- Topic weights in order of topic number
+                if (src_type == int(self.z)):
+                    for i in rnage(2,int(self.z)):
+                        tn = i
+                        tw = row[i]
+                        tws[tn] = tw
+                        if tw != 0:
+                            H += tw * log(tw)
+                
+                # Type B -- Topic weights in order to weight, with topic number paired
+                elif (src_type == int(self.z) * 2):
+                    for i in range(2,int(self.z)*2,2):
+                        tn = int(row[i])
+                        tw = float(row[i+1])
+                        tws[tn] = tw
+                        if tw != 0:
+                            H += tw * log(tw)
+                        
                 values.append(-1 * H) # topic_entropy
                 for tw in tws:
-                    values.append(tw) # topic weights (t1 ... tn)            
+                    values.append(tw) # topic weights (t1 ... tn)
+                    
                 cur.execute(self.insert_sql,values)
             conn.commit()
             cur.close()

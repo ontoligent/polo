@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 import sys, os, configparser
-from polo.mallet import Mallet
+#from polo.mallet import Mallet
+import polo.Mallet as Polo
 
 # Get command line arguments -- we expect project and trial at a minimum
 args = len(sys.argv)
@@ -90,44 +91,58 @@ else:
 
 # Create the Polo object
 print('HEY Creating Mallet wrapper object')
-p = Mallet(project,trial,mallet_path)
+# p = Mallet(project,trial,mallet_path)
+mt = Polo.PoloTrial(project,trial,mallet_path)
 
 # Change number of topics if passed
 if z:
     print('HEY Updating Z to {0}, as suggested'.format(z))
-    p.mallet['train-topics']['num-topics'] = z
+    #p.mallet['train-topics']['num-topics'] = z
+    #mi.mallet['train-topics']['num-topics'] = z
+    mt.cfg[trial]['num-topics'] = str(z)
+    
 if iterations:
     print('HEY Updating Iterations to {0}, as suggested'.format(iterations))
-    p.mallet['train-topics']['num-iterations'] = iterations
-
+    #p.mallet['train-topics']['num-iterations'] = iterations
+    #mi.mallet['train-topics']['num-iterations'] = iterations
+    mt.cfg[trial]['num-iterations'] = str(iterations)
+    
 # CORPUS -> MALLET
+mi = Polo.MalletInterface(mt)
 
 # Run mallet to create the mallet file
 print('HEY Importing mallet file')
-p.mallet_import()
+#p.mallet_import()
+mi.mallet_import()
 
 # Run mallet to generate the model
 print('HEY Training topics and generating output files. Mallet is going to talk for a while.\n')
-p.mallet_train()
+#p.mallet_train()
+mi.mallet_train()
 print('OK Mallet is finished doing its thing')
 
 # MALLET -> SQLITE
+mm = Polo.MalletModel(mi)
 
 # Generate the SQL
-print('HEY Generating the SQL')
-p.create_table_defs()
-
+#print('HEY Generating the SQL')
+#p.create_table_defs()
 # Do the imports
 print('HEY Importing the model')
-p.import_model()
+#p.import_model()
+mm.populate_model()
 
 # Say bye
 print('OK Done with everything.')
 
 # Share the love
-dbfile = p.generate_dbfilename()
+mm.generate_dbfilename()
+#print(mm.dbfilename)
+#dbfile = p.generate_dbfilename()
 print('-' * 80)
 print('Enter the following to see your new database right away:')
-print('\tsqlite3', dbfile)
+#print('\tsqlite3', dbfile)
+print('\tsqlite3', mm.dbfilename)
 print('-' * 80)
+
 sys.exit(0)

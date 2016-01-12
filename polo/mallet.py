@@ -213,7 +213,7 @@ class MalletModel:
                 for i in range(2,int(self.z)*2,2):
                     print(i,row[i])
                     #tn = int(row[int(i)])
-                    tn = int(row[i])
+                    tn = int(float(row[i]))
                     #tw = float(row[int(i)+1])
                     tw = float(row[i+1])
                     tws[tn] = tw

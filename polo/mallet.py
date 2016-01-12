@@ -218,7 +218,7 @@ class MalletModel:
                 
                 # Type A -- Topic weights in order of topic number
                 if (src_type == int(self.z)):
-                    for i in rnage(2,int(self.z)):
+                    for i in range(2,int(self.z)):
                         tn = i
                         tw = row[i]
                         tws[tn] = tw

@@ -1,11 +1,10 @@
-import os, re, configparser, sqlite3, codecs
+import os, re, configparser, sqlite3, codecs, subprocess
 from collections import OrderedDict
 from lxml import etree
 from math import log
 
 class Mallet:
-    
-    # The data model
+
     tbl_defs = {}
     tbl_defs['doc'] = OrderedDict([('doc_id', 'TEXT'), ('doc_label', 'TEXT'), ('doc_content', 'TEXT')])
     tbl_defs['topic'] = OrderedDict([('topic_id', 'TEXT'), ('topic_alpha', 'REAL'), ('total_tokens', 'INTEGER'), ('topic_words', 'TEXT')])
@@ -65,6 +64,7 @@ class Mallet:
         my_args = ['--{0} {1}'.format(arg,self.mallet[op][arg]) for arg in self.mallet[op]]
         print('{0} {1}'.format(my_cmd, ' '.join(my_args)))
         self.cmd_response = os.system('{0} {1}'.format(my_cmd, ' '.join(my_args)))
+        #subprocess.call(my_args)
         
     def mallet_import(self):
         self.mallet_run_command('import-file')

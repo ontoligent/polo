@@ -205,6 +205,7 @@ class MalletModel:
                     continue
                 values = []
                 row = line.split('\t')
+                print(row)
                 info = row[1].split(',') 
                 values.append(info[0]) # doc_id
                 values.append(info[1]) # doc_label

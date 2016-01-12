@@ -211,9 +211,10 @@ class MalletModel:
                 H = 0 # Entropy
                 tws = [0 for i in range(int(self.z))]
                 for i in range(2,int(self.z)*2,2):
-                    print(i)
-                    tn = int(row[int(i)])
-                    tw = float(row[int(i)+1])
+                    #tn = int(row[int(i)])
+                    tn = int(row[i])
+                    #tw = float(row[int(i)+1])
+                    tw = float(row[i+1])
                     tws[tn] = tw
                     if tw != 0:
                         H += tw * log(tw)

@@ -220,7 +220,7 @@ class MalletModel:
                 if (src_type == int(self.z)):
                     for i in range(2,int(self.z)):
                         tn = i
-                        tw = row[i]
+                        tw = float(row[i])
                         tws[tn] = tw
                         if tw != 0:
                             H += tw * log(tw)

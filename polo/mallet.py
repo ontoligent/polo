@@ -197,7 +197,9 @@ class MalletModel:
             Table.__init__(self,'doctopic',self.raw_fields,z)
 
         def import_src_data(self, conn):
-    
+
+            # This must handle different versions of MALLET
+            
             self.create_table(conn)
             cur = conn.cursor()
             for line in self.src_data_iter():
@@ -205,7 +207,7 @@ class MalletModel:
                     continue
                 values = []
                 row = line.split('\t')
-                print(row)
+                print(len(row))
                 info = row[1].split(',') 
                 values.append(info[0]) # doc_id
                 values.append(info[1]) # doc_label

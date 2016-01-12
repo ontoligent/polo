@@ -214,6 +214,8 @@ class MalletModel:
                 tws = [0 for i in range(int(self.z))]
 
                 # Determine how many cols, since MALLET does it two ways ...
+                # Shouldn't have to do this for each row, though
+                # Should get the row lenght and calculate type once
                 src_type = len(row) - 2
                 
                 # Type A -- Topic weights in order of topic number

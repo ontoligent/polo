@@ -128,7 +128,7 @@ class MalletModel:
         'topicphrase': object,
         'config': object
     }
-    
+        
     def __init__(self,mallet_interface):
         
         self.trial = mallet_interface.trial
@@ -137,22 +137,23 @@ class MalletModel:
         self.generate_dbfilename()
         
         self.tables['doc'] = self.DocTable()
-        self.tables['doc'].src_file_path = mallet_interface.mallet['import-file']['input']
         self.tables['topic'] = self.TopicTable()
-        self.tables['topic'].src_file_path = mallet_interface.mallet['train-topics']['output-topic-keys']
         self.tables['doctopic'] = self.DocTopicTable(self.z)
-        self.tables['doctopic'].src_file_path = mallet_interface.mallet['train-topics']['output-doc-topics']
         self.tables['wordtopic'] = self.WordTopicTable(self.z)
-        self.tables['wordtopic'].src_file_path = mallet_interface.mallet['train-topics']['word-topic-counts-file']        
         self.tables['topicphrase'] = self.TopicPhraseTable()
-        self.tables['topicphrase'].src_file_path = mallet_interface.mallet['train-topics']['xml-topic-phrase-report']
         self.tables['config'] = self.ConfigTable(mallet_interface)
+
+        self.tables['doc'].src_file_path = mallet_interface.mallet['import-file']['input']
+        self.tables['topic'].src_file_path = mallet_interface.mallet['train-topics']['output-topic-keys']
+        self.tables['doctopic'].src_file_path = mallet_interface.mallet['train-topics']['output-doc-topics']
+        self.tables['wordtopic'].src_file_path = mallet_interface.mallet['train-topics']['word-topic-counts-file']        
+        self.tables['topicphrase'].src_file_path = mallet_interface.mallet['train-topics']['xml-topic-phrase-report']
         
     class DocTable(Table):
         
         raw_fields = (('doc_id','TEXT'), ('doc_label','TEXT'), ('doc_content','TEXT'))
 
-        def __init__(self):        
+        def __init__(self):
             Table.__init__(self,'doc',self.raw_fields)
             
         def import_src_data(self, conn):
@@ -341,11 +342,12 @@ if __name__ == '__main__':
     trial_name    = 'default'
     projects_path = 'projects'
     mallet_path   = '/usr/local/bin/mallet'
+    
     t = PoloTrial(project_name,trial_name,mallet_path,projects_path)
 
     mi = MalletInterface(t)
-    #mi.mallet_import()
-    #mi.mallet_train()
+    mi.mallet_import()
+    mi.mallet_train()
     
     mm = MalletModel(mi)
     mm.generate_dbfilename()

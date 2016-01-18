@@ -52,8 +52,7 @@ class MalletInterface:
 
     def mallet_run_command(self,op):
         my_args = ['--{0} {1}'.format(arg,self.mallet[op][arg]) for arg in self.mallet[op]]
-        output = subprocess.check_output([self.trial.mallet_path, op] + my_args, shell=False)
-        #print(output)
+        self.mallet_output = subprocess.check_output([self.trial.mallet_path, op] + my_args, shell=False)
         
     def mallet_import(self):
         self.mallet_run_command('import-file')
@@ -97,10 +96,7 @@ class Table:
             self.field_dict[k] = v
                 
     def get_sql_def(self):
-        sql_def  = ' '.join(['CREATE TABLE IF NOT EXISTS', self.name, '('])
-        sql_def += ', '.join(self.field_defs)
-        sql_def += ')'
-        self.sql_def = sql_def
+        self.sql_def = 'CREATE TABLE IF NOT EXISTS {0} ({1})'.format(self.name, ', '.join(self.field_defs))
     
     def create_table(self,conn):
         cur = conn.cursor()

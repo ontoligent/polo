@@ -68,7 +68,7 @@ class Table:
         self.name = name
         self.raw_fields = raw_fields
         self.z = z
-        self.tn_list = ['t{0}'.format(tn) for tn in range(int(self.z))]
+        self.tn_list = ['t{}'.format(tn) for tn in range(int(self.z))]
         self.get_field_defs()
         self.get_sql_def() 
         
@@ -79,7 +79,7 @@ class Table:
             if field[0] == '_topics_':
                 t_type = field[1]
                 for i in range(int(self.z)):
-                    self.field_defs.append('{0} {1}'.format(self.tn_list[i],t_type))
+                    self.field_defs.append('{} {}'.format(self.tn_list[i],t_type))
                     fields.append(self.tn_list[i])
             else:
                 self.field_defs.append(' '.join(field))
@@ -87,7 +87,7 @@ class Table:
         # Also create the field string for INSERTs
         field_str = ','.join(fields)
         value_str = ','.join(['?' for _ in range(len(fields))])
-        self.insert_sql = 'INSERT INTO {0} ({1}) VALUES ({2})'.format(self.name,field_str,value_str)
+        self.insert_sql = 'INSERT INTO {} ({}) VALUES ({})'.format(self.name,field_str,value_str)
         
     def get_field_dict(self):
         self.field_dict = {}
@@ -96,11 +96,11 @@ class Table:
             self.field_dict[k] = v
                 
     def get_sql_def(self):
-        self.sql_def = 'CREATE TABLE IF NOT EXISTS {0} ({1})'.format(self.name, ', '.join(self.field_defs))
+        self.sql_def = 'CREATE TABLE IF NOT EXISTS {} ({})'.format(self.name, ', '.join(self.field_defs))
     
     def create_table(self,conn):
         cur = conn.cursor()
-        cur.execute('DROP TABLE IF EXISTS {0}'.format(self.name))
+        cur.execute('DROP TABLE IF EXISTS {}'.format(self.name))
         cur.execute(self.sql_def)
         conn.commit()
         cur.close()

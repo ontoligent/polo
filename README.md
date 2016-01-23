@@ -175,7 +175,7 @@ keys in the trials section are just the command line keys for MALLET's
 like. Note, however, that Polo takes care of defining the output
 files, so you don't need to add these.
 
-So, once you have create a project directory with a corpus and trials
+So, once you have created a project directory with a corpus and trials
 directory, and added a corpus file and stopwords file to the former
 and a trial directory to the latter, and you have created a
 `config.ini` file for the project, you can start doing this:
@@ -209,8 +209,8 @@ configparser, sqlite3, codecs, collections, lxml, math`. I use the
 Anaconda distribution and I believe that I had to install `lxml`
 separately.
 * **SQLite3**. You don't need this to run Polo, but to view the
-results you do. Fortunately, Python comes with built in support for
-it. I also recommend using SQLiteStudio <http://sqlitestudio.pl/> to
+results without using Python you do. (Python has built in support for sqlite3.) 
+I also recommend using SQLiteStudio <http://sqlitestudio.pl/> to
 view and interact with your databases.
 
 Also:

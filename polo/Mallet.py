@@ -194,9 +194,6 @@ class MalletModel:
             Table.__init__(self,'doctopic',self.raw_fields,z)
 
         def import_src_data(self, conn):
-
-            # This must handle different versions of MALLET
-            
             self.create_table(conn)
             cur = conn.cursor()
             for line in self.src_data_iter():
@@ -207,6 +204,7 @@ class MalletModel:
                 info = row[1].split(',') 
                 values.append(info[0]) # doc_id
                 values.append(info[1]) # doc_label
+                
                 H = 0 # Entropy
                 tws = [0 for i in range(int(self.z))]
 
@@ -217,18 +215,18 @@ class MalletModel:
                 
                 # Type A -- Topic weights in order of topic number
                 if (src_type == int(self.z)):
-                    for i in range(2,int(self.z)):
+                    for i in range(int(self.z)):
                         tn = i
-                        tw = float(row[i])
+                        tw = float(row[i+2])
                         tws[tn] = tw
                         if tw != 0:
                             H += tw * log(tw)
                 
                 # Type B -- Topic weights in order to weight, with topic number paired
                 elif (src_type == int(self.z) * 2):
-                    for i in range(2,int(self.z)*2,2):
-                        tn = int(row[i])
-                        tw = float(row[i+1])
+                    for i in range(int(self.z)*2,2):
+                        tn = int(row[i+2])
+                        tw = float(row[i+3])
                         tws[tn] = tw
                         if tw != 0:
                             H += tw * log(tw)
